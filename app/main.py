@@ -6,7 +6,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.api.documents import router as documents_router
 
 app = FastAPI(
-    title="Legal Tech Redlining + Search API",
+    title="DocSearch API",
     version="0.1.0",
 )
 

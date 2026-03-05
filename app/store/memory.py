@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Optional
 from uuid import uuid4
 import threading
@@ -22,7 +22,7 @@ class InMemoryDocumentStore:
 
     def create(self, title: Optional[str], text: str) -> Document:
         with self._lock:
-            now = datetime.utcnow()
+            now = datetime.now(timezone.utc)
             doc_id = f"doc_{uuid4().hex}"
             doc = Document(
                 id=doc_id,
