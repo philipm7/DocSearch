@@ -111,7 +111,7 @@ Examples:
   - Search uses a streaming scan to avoid building large in-memory match lists for large documents.
 - **Error format:** All errors return `{ "error": "...", "code": <http_status> }` to keep client handling consistent.
 
-## Example curl
+## Example curl (Can also use Swagger UI)
 
 ```bash
 BASE="http://localhost:8000"
