@@ -17,3 +17,9 @@ def test_homepage_renders_document_table():
     assert "<th>Title</th>" in body
     assert "API docs" in body
 
+
+def test_homepage_empty_state_message():
+    r = client.get("/")
+    assert r.status_code == 200
+    assert "No documents yet" in r.text
+

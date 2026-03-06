@@ -38,3 +38,18 @@ def test_apply_multiple_changes_sequentially():
     )
     assert new_text == "alpha BETA ALPHA beta"
     assert len(applied) == 2
+
+
+def test_occurrence_must_be_ge_1():
+    with pytest.raises(ChangeValidationError):
+        replace_nth_occurrence("hello", target="h", replacement="H", occurrence=0)
+
+
+def test_apply_replace_changes_rejects_empty_list():
+    with pytest.raises(ChangeValidationError):
+        apply_replace_changes("hello", [])
+
+
+def test_apply_replace_changes_rejects_non_dict_items():
+    with pytest.raises(ChangeValidationError):
+        apply_replace_changes("hello", ["not-a-dict"])

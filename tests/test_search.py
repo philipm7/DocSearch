@@ -22,3 +22,8 @@ def test_search_allows_overlapping():
     # "ana" occurs at 1 and 3 if overlaps allowed
     matches = list(iter_matches(text, "ana", case_sensitive=True))
     assert [m["start"] for m in matches] == [1, 3]
+
+
+def test_search_empty_query_yields_no_matches():
+    text = "anything"
+    assert list(iter_matches(text, "", case_sensitive=True)) == []
