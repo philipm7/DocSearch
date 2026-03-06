@@ -113,21 +113,21 @@ Examples:
 
 ## Example curl
 
-Base URL
+```bash
 BASE="http://localhost:8000"
 
-1) Create a document
+# 1) Create a document
 curl -s -X POST "$BASE/documents" \
   -H "Content-Type: application/json" \
   -d '{"title":"NDA","text":"This Agreement is binding. This Agreement is final."}'
 
-(Copy the "id" from the response into DOC_ID)
+# Copy the returned id into DOC_ID
 DOC_ID="doc_..."
 
-2) Get the document
+# 2) Get the document
 curl -s "$BASE/documents/$DOC_ID"
 
-3) Replace the 2nd occurrence of "Agreement" with "Contract"
+# 3) Replace the 2nd occurrence of "Agreement" with "Contract"
 curl -s -X PATCH "$BASE/documents/$DOC_ID" \
   -H "Content-Type: application/json" \
   -d '{
@@ -141,5 +141,6 @@ curl -s -X PATCH "$BASE/documents/$DOC_ID" \
     ]
   }'
 
-4) Search across all documents
+# 4) Search across all documents
 curl -s "$BASE/documents/search?q=Contract&limit=10&offset=0&context=30"
+```
