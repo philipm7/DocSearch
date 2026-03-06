@@ -1,4 +1,4 @@
-# Legal Tech - Part I (Backend Only) — Document Redlining + Search API
+# Legal Tech - Part I - Document Redlining + Search API
 
 This is a small FastAPI service that:
 - Stores text documents
