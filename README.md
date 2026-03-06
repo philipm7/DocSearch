@@ -18,6 +18,9 @@ uvicorn app.main:app --reload
 Open interactive docs:
 - http://localhost:8000/docs
 
+Open a simple documents table:
+- http://localhost:8000/
+
 Run tests:
 ```bash
 pytest -q
@@ -68,11 +71,27 @@ Optional filters:
 
 Response includes match offsets, a context snippet, and pagination fields (returnedMatches, hasMore).
 
-## Error format
+## Error handling
 
-All errors return a JSON object like:
+- All errors return a JSON object like `{ "error": "message", "code": 400 }`.
+- Validation errors use HTTP `422` and include an optional `details` array for debugging.
+- Unhandled server errors return HTTP `500` with `{ "error": "Internal server error", "code": 500 }`.
+
+Examples:
+
+**Missing document (404)**
 ```json
-{ "error": "message", "code": 400 }
+{ "error": "Document not found", "code": 404 }
+```
+
+**Version conflict (409)**
+```json
+{ "error": "Version conflict", "code": 409 }
+```
+
+**Schema validation (422)**
+```json
+{ "error": "Validation error", "code": 422, "details": [{ "...": "..." }] }
 ```
 
 ## Performance notes
@@ -94,7 +113,7 @@ All errors return a JSON object like:
 
 ## Example curl
 
-# Base URL
+Base URL
 BASE="http://localhost:8000"
 
 1) Create a document
@@ -102,7 +121,7 @@ curl -s -X POST "$BASE/documents" \
   -H "Content-Type: application/json" \
   -d '{"title":"NDA","text":"This Agreement is binding. This Agreement is final."}'
 
-# (Copy the "id" from the response into DOC_ID)
+(Copy the "id" from the response into DOC_ID)
 DOC_ID="doc_..."
 
 2) Get the document
